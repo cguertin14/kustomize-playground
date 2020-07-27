@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - argocd-application-controller/
+  - argocd-repo-server/
+  - argocd-configs/
+  - argocd-server/
+  - dex/
+  - redis/
+  - crds/
+
+namespace: argocd
+
+commonLabels:
+  app: argocd
+
+commonAnnotations:
+  contact: '+15148889999'

@@ -1,0 +1,19 @@
+---
+# Source: argo-cd/templates/redis/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: argo-argocd-redis
+  labels:
+    app.kubernetes.io/name: argocd-redis
+    helm.sh/chart: argo-cd-2.5.4
+    app.kubernetes.io/instance: argo
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/component: redis
+spec:
+  ports:
+  - port: 6379
+    targetPort: 6379
+  selector:
+    app.kubernetes.io/name: argocd-redis

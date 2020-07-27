@@ -1,0 +1,74 @@
+---
+# Source: argo-cd/templates/argocd-application-controller/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argo-argocd-application-controller
+  labels:
+    app.kubernetes.io/name: argocd-application-controller
+    helm.sh/chart: argo-cd-2.5.4
+    app.kubernetes.io/instance: argo
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/component: application-controller
+    app.kubernetes.io/version: "v1.6.1"
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: argocd-application-controller
+      app.kubernetes.io/instance: argo
+  revisionHistoryLimit: 5
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: argocd-application-controller
+        helm.sh/chart: argo-cd-2.5.4
+        app.kubernetes.io/instance: argo
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/part-of: argocd
+        app.kubernetes.io/component: application-controller
+        app.kubernetes.io/version: "v1.6.1"
+    spec:
+      containers:
+      - command:
+        - argocd-application-controller
+        - --status-processors
+        - "30"
+        - --operation-processors
+        - "15"
+        - --app-resync
+        - "180"
+        - --repo-server
+        - argo-argocd-repo-server:8081
+        - --loglevel
+        - info
+        - --redis
+        - argo-argocd-redis:6379
+        image: argoproj/argocd:v1.6.1
+        imagePullPolicy: IfNotPresent
+        name: application-controller
+        ports:
+        - name: controller
+          containerPort: 8082
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8082
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          tcpSocket:
+            port: 8082
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+        resources:
+          {}
+      serviceAccountName: argocd-application-controller

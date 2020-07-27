@@ -1,0 +1,21 @@
+---
+# Source: argo-cd/templates/argocd-application-controller/clusterrolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: argo-argocd-application-controller
+  labels:
+    app.kubernetes.io/name: argocd-application-controller
+    helm.sh/chart: argo-cd-2.5.4
+    app.kubernetes.io/instance: argo
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/component: application-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: argo-argocd-application-controller
+subjects:
+- kind: ServiceAccount
+  name: argocd-application-controller
+  namespace: argocd
