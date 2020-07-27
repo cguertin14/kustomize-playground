@@ -1,0 +1,27 @@
+---
+# Source: traefik/templates/dashboard-ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: traefik-dashboard
+  labels:
+    app: traefik
+    chart: traefik-1.87.1
+    release: "traefik"
+    heritage: "Helm"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-traefik-prod"
+    kubernetes.io/ingress.class: "traefik"
+    kubernetes.io/tls-acme: "true"
+spec:
+  rules:
+  - host: traefik.test.io
+    http:
+      paths:
+      - backend:
+          serviceName: traefik-dashboard
+          servicePort: dashboard-http
+  tls:
+    - hosts:
+      - traefik.test.io
+      secretName: traefik-dashboard-cert

@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik
+spec:
+  template:
+    spec:
+      containers:
+      - name: traefik
+        resources:
+          limits:
+            cpu: '2'
+            memory: 1024Mi
+          requests:
+            cpu: '0.5'
+            memory: 512Mi

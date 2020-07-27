@@ -1,0 +1,27 @@
+---
+# Source: traefik/templates/hpa.yaml
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: traefik
+  labels:
+    app: traefik
+    chart: traefik-1.87.1
+    release: "traefik"
+    heritage: "Helm"
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: traefik
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    - resource:
+        name: cpu
+        targetAverageUtilization: 70
+      type: Resource
+    - resource:
+        name: memory
+        targetAverageUtilization: 70
+      type: Resource

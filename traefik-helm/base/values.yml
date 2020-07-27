@@ -1,0 +1,65 @@
+image: traefik
+imageTag: 1.7.21
+
+serviceType: LoadBalancer
+
+ssl:
+  enabled: true
+  enforced: true
+
+rbac:
+  enabled: true
+
+acme:
+  enabled: false
+
+gzip:
+  enabled: false
+
+metrics:
+  enabled: false
+
+dashboard:
+  enabled: true
+  domain: traefik.test.io
+  auth:
+    basic:
+      # 'some_password' encrypted here.
+      traefik: '$apr1$5Ao6fHtg$gerUAWFSnXLXfnXHQXGFt/'
+  statistics:
+    recentErrors: 5
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/tls-acme: 'true'
+      cert-manager.io/cluster-issuer: letsencrypt-traefik-prod
+    tls:
+    - hosts:
+      - 'traefik.test.io'
+      secretName: traefik-dashboard-cert
+
+resources:
+  limits:
+    memory: 512Mi
+  requests:
+    cpu: '0.4'
+    memory: 256Mi
+ 
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      targetAverageUtilization: 70
+
+deploymentStrategy:
+  rollingUpdate:
+    maxSurge: 25%
+    maxUnavailable: 25%
+  type: RollingUpdate

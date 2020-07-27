@@ -36,6 +36,14 @@ $ kustomize build ./mysql/overlays/staging > output_staging.yml
 ...
 ```
 
+## Helm + Kustomize
+
+It is no secret that Helm charts are a mess. Using Helm with Kustomize helps providing a proper way of deploying Helm charts.
+To do so, for example with the `Traefik` Helm Chart, execute the following command:
+```console
+helm template traefik stable/traefik --values traefik/base/values.yml --output-dir traefik/base/ --namespace <WANTED_NAMESPACE>
+```
+
 ## Apply a kustomize configuration
 
 For example, if you wanted to apply the `mysql` `staging` configuration, you would want to run this command:
