@@ -42,3 +42,11 @@ For example, if you wanted to apply the `mysql` `staging` configuration, you wou
 $ kubectl apply -k mysql/overlays/staging
 ...
 ```
+
+## Delete a kustomize configuration
+
+For example, if you wanted to remove the `mysql` `staging` configuration, you would want to run this command:
+```console
+$ kubectl delete -k mysql/overlays/staging
+...
+```
