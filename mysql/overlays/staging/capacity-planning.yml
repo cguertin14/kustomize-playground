@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  template:
+    spec:
+      containers:
+      - name: mysql
+        resources:
+          limits:
+            cpu: '2'
+            memory: 1024Mi
+          requests:
+            cpu: '1'
+            memory: 512Mi
+

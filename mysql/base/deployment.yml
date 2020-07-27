@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      containers:
+      - name: mysql
+        image: mysql
+        livenessProbe:
+          exec:
+            command:
+              - mysqladmin
+              - ping
+              - -h
+              - localhost
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+              - mysqladmin
+              - ping
+              - -h
+              - localhost
+          initialDelaySeconds: 10
+          periodSeconds: 3
+        resources:
+          limits:
+            cpu: '0.5'
+            memory: 1024Mi
+          requests:
+            cpu: '0.125'
+            memory: 512Mi
+
