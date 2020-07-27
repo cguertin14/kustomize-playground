@@ -8,8 +8,13 @@ spec:
   template:
     spec:
       containers:
-      - name: mysql
-        image: mysql
+      - image: mysql
+        name: mysql
+        envFrom:
+          - secretRef:
+              name: root-db-credentials
+          - configMapRef:
+              name: users-dbs-config
         livenessProbe:
           exec:
             command:
@@ -35,4 +40,21 @@ spec:
           requests:
             cpu: '0.125'
             memory: 512Mi
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: mysql-pvc
+          - mountPath: /var/lib/mysql-root-credentials
+            name: mysql-root-credentials
+          - mountPath: /var/lib/mysql-users-dbs-config
+            name: mysql-users-dbs-config
+      volumes:
+        - name: mysql-pvc
+          persistentVolumeClaim:
+            claimName: mysql
+        - name: mysql-root-credentials
+          secret:
+            secretName: root-db-credentials
+        - name: mysql-users-dbs-config
+          configMap:
+            name: users-dbs-config
 

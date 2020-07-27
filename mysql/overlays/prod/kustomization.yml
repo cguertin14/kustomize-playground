@@ -8,6 +8,7 @@ nameSuffix: -prod
 
 configMapGenerator:
   - name: users-dbs-config
+    behavior: replace
     files:
       - config-files/authentication.sql
 
