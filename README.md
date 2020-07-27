@@ -4,6 +4,7 @@ Repository meant to play with Kustomize while learning it.
 
 ## Technologies used
 
+- [kind](https://kind.sigs.k8s.io/) - Or any cluster you have access to
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - [kustomize](https://kustomize.io)
 
