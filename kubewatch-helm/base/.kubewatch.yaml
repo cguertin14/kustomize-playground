@@ -1,0 +1,23 @@
+handler:
+  slack:
+    enabled: true
+    channel: "XXX"
+    token: "XXX"
+  smtp:
+    enabled: false
+  mattermost:
+    enabled: false
+    channel: ""
+    url: ""
+    username: ""
+resource:
+  deployment: true
+  pod: true
+  job: true
+  replicationcontroller: false
+  persistentvolume: false
+  replicaset: false
+  daemonset: false
+  services: false
+# Leave namespace empty to watch all namespaces.
+namespace: ""

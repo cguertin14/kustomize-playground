@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - clusterrole.yaml
+  - clusterrolebinding.yaml
+  - deployment.yaml
+  - serviceaccount.yaml
+
+namespace: kube-system
+
+commonLabels:
+  app: kubewatch
+
+secretGenerator:
+  - name: kubewatch-config
+    files:
+      - .kubewatch.yaml
