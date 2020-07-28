@@ -56,4 +56,4 @@ Then, the `base/sealed-test-secret.json` will appear. Its content (may vary):
 
 ### Step 3
 
-Voilà. This secret can now be made public anywhere since it cannot be decrypted by anyone except for the sealed-secrets-controller. Don't forget to delete your Kubernetes secret file afterwards.
+Voilà. This secret can now be made public anywhere since it cannot be decrypted by anyone except for the sealed-secrets-controller. Don't forget to delete your Kubernetes secret file afterwards (NOT THE SECRET ITSELF).
