@@ -1,0 +1,19 @@
+---
+# Source: contour/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: contour-certgen
+  labels:
+    app.kubernetes.io/name: contour
+    app.kubernetes.io/instance: contour
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: contour-0.2.0
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: contour-certgen
+subjects:
+- kind: ServiceAccount
+  name: contour
+  namespace: default

@@ -1,0 +1,20 @@
+---
+# Source: contour/templates/hpa.yaml
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    app: contour
+    app.kubernetes.io/name: contour
+    app.kubernetes.io/instance: contour
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: contour-0.2.0
+  name: contour
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: contour
+  minReplicas: 3
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 70

@@ -1,0 +1,65 @@
+contour:
+  image:
+    registry: gcr.io/heptio-images/contour
+    tag: v0.15.0
+    pullPolicy: IfNotPresent
+  replicas: 2
+  resources:
+    limits:
+      cpu: "0.4"
+      memory: 512Mi
+    requests:
+      cpu: "0.2"
+      memory: 256Mi
+
+customResourceDefinitions:
+  create: true
+  cleanup: false
+
+envoy:
+  image:
+    registry: docker.io/envoyproxy/envoy
+    tag: v1.11.1
+    pullPolicy: IfNotPresent
+  resources:
+    limits:
+      cpu: "0.4"
+      memory: 512Mi
+    requests:
+      cpu: "0.2"
+      memory: 256Mi
+
+hpa:
+  create: true
+  minReplicas: 3
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 70
+
+init:
+  image:
+    registry: gcr.io/heptio-images/contour
+    tag: v0.15.0
+    pullPolicy: IfNotPresent
+  resources:
+    limits:
+      cpu: "0.2"
+      memory: 256Mi
+    requests:
+      cpu: "0.1"
+      memory: 128Mi
+
+rbac:
+  create: true
+
+serviceType: LoadBalancer
+
+service:
+  ## Further config for service of type NodePort
+  ## Default config with empty string "" will assign a dynamic
+  ## nodePort to http and https ports
+  nodePorts:
+    http: ""
+    https: ""
+
+serviceAccounts:
+  create: true
