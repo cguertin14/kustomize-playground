@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - config.yaml
+  - controller.yaml
+  - controller-rbac.yaml
+  - destination.yaml
+  - destination-rbac.yaml
+  - heartbeat.yaml
+  - heartbeat-rbac.yaml
+  - identity.yaml
+  - identity-rbac.yaml
+  - linkerd-config-addons.yaml
+  - namespace.yaml
+  - prometheus.yaml
+  - prometheus-rbac.yaml
+  - proxy-injector.yaml
+  - proxy-injector-rbac.yaml
+  - psp.yaml
+  - serviceprofile-crd.yaml
+  - sp-validator.yaml
+  - sp-validator-rbac.yaml
+  - tap.yaml
+  - tap-rbac.yaml
+  - trafficsplit-crd.yaml
+  - web.yaml
+  - web-rbac.yaml

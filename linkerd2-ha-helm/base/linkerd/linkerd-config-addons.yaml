@@ -1,0 +1,34 @@
+---
+# Source: linkerd2/templates/linkerd-config-addons.yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: linkerd-config-addons
+  namespace: linkerd
+  labels:
+    linkerd.io/control-plane-ns: linkerd
+  annotations:
+    linkerd.io/created-by: linkerd/helm stable-2.8.1
+data:
+  values: |-
+    global:
+      grafanaUrl: ""
+    grafana:
+      enabled: true
+      image:
+        name: gcr.io/linkerd-io/grafana
+      name: linkerd-grafana
+      resources:
+        cpu:
+          limit: "1"
+          request: 100m
+        memory:
+          limit: 1024Mi
+          request: 50Mi
+    tracing:
+      enabled: false
+---
+# Source: linkerd2/templates/linkerd-config-addons.yaml
+###
+### linkerd add-ons configuration
+###

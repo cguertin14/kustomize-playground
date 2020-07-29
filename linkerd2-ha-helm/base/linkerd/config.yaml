@@ -1,0 +1,78 @@
+---
+# Source: linkerd2/templates/config.yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: linkerd-config
+  namespace: linkerd
+  labels:
+    linkerd.io/control-plane-component: controller
+    linkerd.io/control-plane-ns: linkerd
+  annotations:
+    linkerd.io/created-by: linkerd/helm stable-2.8.1
+data:
+  global: |
+    {
+      "linkerdNamespace": "linkerd",
+      "cniEnabled": false,
+      "version": "stable-2.8.1",
+      "identityContext":{
+        "trustDomain": "cluster.local",
+        "trustAnchorsPem": "-----BEGIN CERTIFICATE-----\nMIIBlTCCATygAwIBAgIRAPGexragSZLue09oVH/mWnwwCgYIKoZIzj0EAwIwKTEn\nMCUGA1UEAxMeaWRlbnRpdHkubGlua2VyZC5jbHVzdGVyLmxvY2FsMB4XDTIwMDcy\nOTE3MjAxMloXDTMwMDcyNzE3MjAxMlowKTEnMCUGA1UEAxMeaWRlbnRpdHkubGlu\na2VyZC5jbHVzdGVyLmxvY2FsMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEA2gb\nkrbWP1xW3OVIrsStgmyYBmKF+WrMqATxRBorNbXY58VCLxsYB3HbPOtHU7sk0m80\nzvEfYXGzKdAU9dv0U6NFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYB\nAf8CAQEwHQYDVR0OBBYEFNe9eyvrfmTf6g0fG6y+WMiScvvrMAoGCCqGSM49BAMC\nA0cAMEQCIGm4gXB+w6oOxiNDsMR8kxlTBmTZpms9GYXLBIGEzNS8AiAF9SllMyLy\nn9ihz3CHm9NTxNGRFDOWs0+dRYGAi9PbNA==\n-----END CERTIFICATE-----",
+        "issuanceLifetime": "86400s",
+        "clockSkewAllowance": "20s",
+        "scheme": "linkerd.io/tls"
+      },
+      "autoInjectContext": null,
+      "omitWebhookSideEffects": false,
+      "clusterDomain": "cluster.local"
+    }
+  proxy: |
+    {
+      "proxyImage":{
+        "imageName":"gcr.io/linkerd-io/proxy",
+        "pullPolicy":"IfNotPresent"
+      },
+      "proxyInitImage":{
+        "imageName":"gcr.io/linkerd-io/proxy-init",
+        "pullPolicy":"IfNotPresent"
+      },
+      "controlPort":{
+        "port": 4190
+      },
+      "ignoreInboundPorts":[],
+      "ignoreOutboundPorts":[],
+      "inboundPort":{
+        "port": 4143
+      },
+      "adminPort":{
+        "port": 4191
+      },
+      "outboundPort":{
+        "port": 4140
+      },
+      "resource":{
+        "requestCpu": "100m",
+        "limitCpu": "1",
+        "requestMemory": "20Mi",
+        "limitMemory": "250Mi"
+      },
+      "proxyUid": 2102,
+      "logLevel":{
+        "level": "warn,linkerd=info"
+      },
+      "disableExternalProfiles": true,
+      "proxyVersion": "stable-2.8.1",
+      "proxyInitImageVersion": "v1.3.3",
+      "debugImage":{
+        "imageName":"gcr.io/linkerd-io/debug",
+        "pullPolicy":"IfNotPresent"
+      },
+      "debugImageVersion": "stable-2.8.1",
+      "destinationGetNetworks": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+    }
+  install: |
+    {
+      "cliVersion":"stable-2.8.1",
+      "flags":[]
+    }

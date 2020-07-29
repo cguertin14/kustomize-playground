@@ -1,0 +1,15 @@
+---
+# Source: linkerd2/charts/grafana/templates/grafana-rbac.yaml
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: linkerd-grafana
+  namespace: linkerd
+  labels:
+    linkerd.io/control-plane-component: grafana
+    linkerd.io/control-plane-ns: linkerd
+---
+# Source: linkerd2/charts/grafana/templates/grafana-rbac.yaml
+###
+### Grafana RBAC
+###

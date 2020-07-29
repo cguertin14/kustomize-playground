@@ -1,0 +1,133 @@
+---
+# Source: linkerd2/templates/tap-rbac.yaml
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: linkerd-tap
+  namespace: linkerd
+  labels:
+    linkerd.io/control-plane-component: tap
+    linkerd.io/control-plane-ns: linkerd
+---
+# Source: linkerd2/templates/tap-rbac.yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: linkerd-tap-tls
+  namespace: linkerd
+  labels:
+    linkerd.io/control-plane-component: tap
+    linkerd.io/control-plane-ns: linkerd
+  annotations:
+    linkerd.io/created-by: linkerd/helm stable-2.8.1
+type: Opaque
+data:
+  crt.pem: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFRENDQWZpZ0F3SUJBZ0lRYjUxNTJqMTlkQ1ZzRkZjdVJMSDdDVEFOQmdrcWhraUc5dzBCQVFzRkFEQWkKTVNBd0hnWURWUVFERXhkc2FXNXJaWEprTFhSaGNDNXNhVzVyWlhKa0xuTjJZekFlRncweU1EQTNNamt4TnpJeApOVGxhRncweU1UQTNNamt4TnpJeE5UbGFNQ0l4SURBZUJnTlZCQU1URjJ4cGJtdGxjbVF0ZEdGd0xteHBibXRsCmNtUXVjM1pqTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFsN3lvV1lDUmFIR2sKcFZUUy9ldG0rNWNLV0t4SGxDYk1xaldDWUtVVjdLaitPMmE5QS9jRyszNFFqVUVOajZvZlh0bTZkSWs0U3RseQpCYlorR2g0eW5JSE5kZTJpTkd2QVdiSUtoYWdaQm55eG82ckRkYzBic3lyZUl3S0hCbVVlT2xWYS9nT2ZFdDhBClZxU0FNR3kvcDZXYkNXRW5sS0tWL0lYODBVQUZ5WmV1ZW01TU9DTUFRcks0NXFnSGZSUldDNkNRVGJTVStPUHUKdlg0bUZEL2RJc3dCcmNERmNCYWF1Z09tSzBvU2gxemkydlovaHhzU3FPRjJlTm93VnBXQjNKekwxeHZmV2VZNQp6a1VqK1dPR0lTeUFZTFFRTlkzakVtUTA2a1JZUk11a1VTUUhZZmcrM2ZwejFISmx0a21yaDVnam9iK1hKUFdWCkxlOXh0WXYrYVFJREFRQUJvMEl3UURBT0JnTlZIUThCQWY4RUJBTUNBcVF3SFFZRFZSMGxCQll3RkFZSUt3WUIKQlFVSEF3RUdDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMQlFBRApnZ0VCQURhTXJRN1dKalZNb0t0aU1jRk55Z2N0ZFF1ckFGbCtpQkVJMFAxemNnenJOVE1Hd0kydVkzSHZjWS9ECnNmdlB4NWdhb2czbmtEQUlVZFBYSmdoOSsrdXM3MnpSQnZQaEQyZVhKQWRaTkIrTlZSN3VMTnZsQnI4UHozVE4KZDk1ODlpNm12L2JhSVVpeGVsTzZjNHVqZ2FBWFhVV3gzVUpOaHFhUElNZTJkcUd0RHhmTGZhTm53SlZOQWRCUQo4M1pyT0xTNStHd2FUb09JRDlKdUkvcncycDgyeW1rdXlCRWI4U2JGNWNjb2VPUUgyWFBTd3BjZE9KVWZtOHRaCloxUllFSk11Y0pSN2NpT0dCc01IT29XM0tvd2ZWUERib01VU1VwVnVEQ0JuTVN4UUhNeFh0bU9ucjNEc3F1NEQKbGlPQjZQZm4weDZXRlBON0tOL0lKTXlXZTRRPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+  key.pem: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb3dJQkFBS0NBUUVBbDd5b1dZQ1JhSEdrcFZUUy9ldG0rNWNLV0t4SGxDYk1xaldDWUtVVjdLaitPMmE5CkEvY0crMzRRalVFTmo2b2ZYdG02ZElrNFN0bHlCYlorR2g0eW5JSE5kZTJpTkd2QVdiSUtoYWdaQm55eG82ckQKZGMwYnN5cmVJd0tIQm1VZU9sVmEvZ09mRXQ4QVZxU0FNR3kvcDZXYkNXRW5sS0tWL0lYODBVQUZ5WmV1ZW01TQpPQ01BUXJLNDVxZ0hmUlJXQzZDUVRiU1UrT1B1dlg0bUZEL2RJc3dCcmNERmNCYWF1Z09tSzBvU2gxemkydlovCmh4c1NxT0YyZU5vd1ZwV0IzSnpMMXh2ZldlWTV6a1VqK1dPR0lTeUFZTFFRTlkzakVtUTA2a1JZUk11a1VTUUgKWWZnKzNmcHoxSEpsdGttcmg1Z2pvYitYSlBXVkxlOXh0WXYrYVFJREFRQUJBb0lCQUZWYStOQ3dOQnV1b2RHbgpMN0ZLdEhtZWMyR0NPQm1zNGNCMXJVdTBVZXI0L1ZwbzVyYk9SUTAvMHd2Q3BtQkVjTFVvZ1d5QXJEdmVxZmR3CnV1cnlSY0lvZW0xMkthS1hZbktTWnJ6YzNJYjdxZW5KYTM1ZXpOQXlzeGE2bXo0THI3OWN1SHpmaUtKUzg1dkoKbVpxajhnUGFjcVlLRXZ2WG9jdVZpNndoK1o5MmFCTEUweTJjcXBKZEJMQnB4UVJXT3NpSHZMcFo4RlJmZ090ZQpERDdHbm9PcGVmV1BGRmhQUnhMYkVGNFdTSS9JSVJEU1dyZzFGN1R2bVRNUWdXaHpUSU9xeHU4K0ZyTnVHS2FjCk5JYXFYb2JFbit4cHM4ZTdvY0FQQWFqc05vYWJwR1RwOFd2a3k1NytxcS9jdzhuZGxCTTBEOFQyZnFLeVBVckcKeitjMU95RUNnWUVBd01ZMHRqZVBrQlYwNVkzblQ4WkF6aGRwb0Fya1g1aU1Cc3dERGc1VHB3cHFETFpIQ1diSwpxMDdyaWJ2UGc2bjloZmxsNmRsSG9jMVBDVjk2RFdxZUZzWWhmSGtuMnJLclF4c0JCSW4wQ2J4K0tOS0hRSjlECmpUN01jeXp2NGl2WnE0cnNYWVUwMitXNTFEc1RNb0hiMkx1dW5qSE4yaU93YUFGMGxBUzUzQzBDZ1lFQXlZRGMKUWc4djlNbVJ0MnZ0MjZmcWFUTktlR3R1ZFlZQ1dKeVcvMjkzYmsvOXBVRm9vNDVITkNMS3BnRGE3KzJ2cjVlZApUelRxeVpNdGprSm5NOExzRUtRK0tBa2htWFE5ejJmanBkM01YSW8yY09GUDRJaldPK25XR2tOV1liZkV6UFFQClVQQVE5SWhocWw5a2lSV3IwZ3FJYUp5KzNtenBQTEdSdUp2M2hLMENnWUFvNVNOamtJL2RJaUFsWHFBMmxUbEUKUDBWQ0ZXMXpOanBtYXJzdkxTemozOXExamFtdVBlYzZ4a2hEZE50RjlEYjdSL2d0enRGYWF1S2NlMnU2RXVjcwpyNldFOFhMWisxTkhyaC9lSmFIbXV0ME1yZlRSYWJmNzY5bVZpVy91VEIwbVBoZDhrM2l1T2FMZGVoYk5mU3oxCllvTmR2ZlVNbE11a2xNSjFjRGM1bFFLQmdFM0RtVDAxTjBDMCtiTmJ4N1BabmJGenhlMnJLRG5hdWRVUXVZVmkKc3lpelhpUUVsaWxvb3pvUG96MWxYeGp4RmJnaVB1ZHVlSjNLV3U1bjJnUXoyWDZpcEFvM1crd28zQ0hLNmlQOAo4UDFWcWFUdWp6RU1IZ0dKUU1OcDhWQk01M3BoUmZmcWJlQ3hNVi9hNktXdTQxeHdEQ3l6TVVZTnFnVnVVZHA0CjlwRVJBb0dCQUk4QTl5N0IrQmVCTWdETTJFOStrZ3lNZkg5NE9MOStERjdHeTN5S2o1QWFZQ1pLd000Z3VwSk0KZkRNUzIzM2twL2xER2dtMjN6RVVyZjZMRk9yaFNpcmxEWTA1SkFlRnZkTThZdDJoeEY5UG5tQWk0VXo0TDN1VQpqQWJYOERqUitVd0F5TFdrMkhiUC9CQU5vblZXc3NjVzZ5T0w3dzNOR1dCREp6K3N3cVloCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
+---
+# Source: linkerd2/templates/tap-rbac.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: linkerd-linkerd-tap
+  labels:
+    linkerd.io/control-plane-component: tap
+    linkerd.io/control-plane-ns: linkerd
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services", "replicationcontrollers", "namespaces", "nodes", "configmaps"]
+  verbs: ["list", "get", "watch"]
+- apiGroups: ["extensions", "apps"]
+  resources: ["daemonsets", "deployments", "replicasets", "statefulsets"]
+  verbs: ["list", "get", "watch"]
+- apiGroups: ["extensions", "batch"]
+  resources: ["cronjobs", "jobs"]
+  verbs: ["list" , "get", "watch"]
+---
+# Source: linkerd2/templates/tap-rbac.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: linkerd-linkerd-tap-admin
+  labels:
+    linkerd.io/control-plane-component: tap
+    linkerd.io/control-plane-ns: linkerd
+rules:
+- apiGroups: ["tap.linkerd.io"]
+  resources: ["*"]
+  verbs: ["watch"]
+---
+# Source: linkerd2/templates/tap-rbac.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: linkerd-linkerd-tap
+  labels:
+    linkerd.io/control-plane-component: tap
+    linkerd.io/control-plane-ns: linkerd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: linkerd-linkerd-tap
+subjects:
+- kind: ServiceAccount
+  name: linkerd-tap
+  namespace: linkerd
+---
+# Source: linkerd2/templates/tap-rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: linkerd-linkerd-tap-auth-delegator
+  labels:
+    linkerd.io/control-plane-component: tap
+    linkerd.io/control-plane-ns: linkerd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+- kind: ServiceAccount
+  name: linkerd-tap
+  namespace: linkerd
+---
+# Source: linkerd2/templates/tap-rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: linkerd-linkerd-tap-auth-reader
+  namespace: kube-system
+  labels:
+    linkerd.io/control-plane-component: tap
+    linkerd.io/control-plane-ns: linkerd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: extension-apiserver-authentication-reader
+subjects:
+- kind: ServiceAccount
+  name: linkerd-tap
+  namespace: linkerd
+---
+# Source: linkerd2/templates/tap-rbac.yaml
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+metadata:
+  name: v1alpha1.tap.linkerd.io
+  labels:
+    linkerd.io/control-plane-component: tap
+    linkerd.io/control-plane-ns: linkerd
+spec:
+  group: tap.linkerd.io
+  version: v1alpha1
+  groupPriorityMinimum: 1000
+  versionPriority: 100
+  service:
+    name: linkerd-tap
+    namespace: linkerd
+  caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFRENDQWZpZ0F3SUJBZ0lRYjUxNTJqMTlkQ1ZzRkZjdVJMSDdDVEFOQmdrcWhraUc5dzBCQVFzRkFEQWkKTVNBd0hnWURWUVFERXhkc2FXNXJaWEprTFhSaGNDNXNhVzVyWlhKa0xuTjJZekFlRncweU1EQTNNamt4TnpJeApOVGxhRncweU1UQTNNamt4TnpJeE5UbGFNQ0l4SURBZUJnTlZCQU1URjJ4cGJtdGxjbVF0ZEdGd0xteHBibXRsCmNtUXVjM1pqTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFsN3lvV1lDUmFIR2sKcFZUUy9ldG0rNWNLV0t4SGxDYk1xaldDWUtVVjdLaitPMmE5QS9jRyszNFFqVUVOajZvZlh0bTZkSWs0U3RseQpCYlorR2g0eW5JSE5kZTJpTkd2QVdiSUtoYWdaQm55eG82ckRkYzBic3lyZUl3S0hCbVVlT2xWYS9nT2ZFdDhBClZxU0FNR3kvcDZXYkNXRW5sS0tWL0lYODBVQUZ5WmV1ZW01TU9DTUFRcks0NXFnSGZSUldDNkNRVGJTVStPUHUKdlg0bUZEL2RJc3dCcmNERmNCYWF1Z09tSzBvU2gxemkydlovaHhzU3FPRjJlTm93VnBXQjNKekwxeHZmV2VZNQp6a1VqK1dPR0lTeUFZTFFRTlkzakVtUTA2a1JZUk11a1VTUUhZZmcrM2ZwejFISmx0a21yaDVnam9iK1hKUFdWCkxlOXh0WXYrYVFJREFRQUJvMEl3UURBT0JnTlZIUThCQWY4RUJBTUNBcVF3SFFZRFZSMGxCQll3RkFZSUt3WUIKQlFVSEF3RUdDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMQlFBRApnZ0VCQURhTXJRN1dKalZNb0t0aU1jRk55Z2N0ZFF1ckFGbCtpQkVJMFAxemNnenJOVE1Hd0kydVkzSHZjWS9ECnNmdlB4NWdhb2czbmtEQUlVZFBYSmdoOSsrdXM3MnpSQnZQaEQyZVhKQWRaTkIrTlZSN3VMTnZsQnI4UHozVE4KZDk1ODlpNm12L2JhSVVpeGVsTzZjNHVqZ2FBWFhVV3gzVUpOaHFhUElNZTJkcUd0RHhmTGZhTm53SlZOQWRCUQo4M1pyT0xTNStHd2FUb09JRDlKdUkvcncycDgyeW1rdXlCRWI4U2JGNWNjb2VPUUgyWFBTd3BjZE9KVWZtOHRaCloxUllFSk11Y0pSN2NpT0dCc01IT29XM0tvd2ZWUERib01VU1VwVnVEQ0JuTVN4UUhNeFh0bU9ucjNEc3F1NEQKbGlPQjZQZm4weDZXRlBON0tOL0lKTXlXZTRRPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+---
+# Source: linkerd2/templates/tap-rbac.yaml
+###
+### Tap RBAC
+###

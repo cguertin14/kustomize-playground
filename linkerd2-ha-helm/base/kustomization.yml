@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - grafana/
+  - linkerd/
+
+namespace: linkerd
+
+commonLabels:
+  app: linkerd
+
+commonAnnotations:
+  contact: '+15142223333'

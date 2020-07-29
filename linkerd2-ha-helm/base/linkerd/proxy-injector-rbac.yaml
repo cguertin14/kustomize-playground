@@ -1,0 +1,104 @@
+---
+# Source: linkerd2/templates/proxy-injector-rbac.yaml
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: linkerd-proxy-injector
+  namespace: linkerd
+  labels:
+    linkerd.io/control-plane-component: proxy-injector
+    linkerd.io/control-plane-ns: linkerd
+---
+# Source: linkerd2/templates/proxy-injector-rbac.yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: linkerd-proxy-injector-tls
+  namespace: linkerd
+  labels:
+    linkerd.io/control-plane-component: proxy-injector
+    linkerd.io/control-plane-ns: linkerd
+  annotations:
+    linkerd.io/created-by: linkerd/helm stable-2.8.1
+type: Opaque
+data:
+  crt.pem: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURKakNDQWc2Z0F3SUJBZ0lRWlg1ZGlNNHc4VTBoQ1NMcnFQMDJuREFOQmdrcWhraUc5dzBCQVFzRkFEQXQKTVNzd0tRWURWUVFERXlKc2FXNXJaWEprTFhCeWIzaDVMV2x1YW1WamRHOXlMbXhwYm10bGNtUXVjM1pqTUI0WApEVEl3TURjeU9URTNNakl3TUZvWERUSXhNRGN5T1RFM01qSXdNRm93TFRFck1Da0dBMVVFQXhNaWJHbHVhMlZ5ClpDMXdjbTk0ZVMxcGJtcGxZM1J2Y2k1c2FXNXJaWEprTG5OMll6Q0NBU0l3RFFZSktvWklodmNOQVFFQkJRQUQKZ2dFUEFEQ0NBUW9DZ2dFQkFOZWNkcGJGTFBsaERIT004eUM4YUlYbnl3bnFVdlhLNWwxdVZrdUQxL0Qvc3NqOQpuNDlIdm9OajBSenRFTFBQSGVXR0lBRnZKS0xtNUpPUUk4d3NhaXJ5akcyb0NZUVR2dE1idExVMDgzUHp5bW9JCnpBaXpoTExsU0ptelBoVThzT3dycDJjdUNVR0NNM2F5S0Zra1pwYjNacDhmamd3WnoxSkowYWJBVytSaFgxcVIKS0dvMXIvbm1udEkyanBYdmZRT3REdjFDRklBWXhWMk5QWUc4U0s2UVM0cVlDbGcrZzdYSFdQTHJONU5CSHV0SwozOHlRTUJwSVlPRWhaaWxvVUthcm5qTVVnOHhFbHYzS2pUZEJIOWxsRjdXQnFBMTlsMy9HZkdKL0prZEZLaUZKClJidWZNQ05GbXYvTCtUSC9ZM0lteFMrSWVBeHdFS0lML3VGbFIxc0NBd0VBQWFOQ01FQXdEZ1lEVlIwUEFRSC8KQkFRREFnS2tNQjBHQTFVZEpRUVdNQlFHQ0NzR0FRVUZCd01CQmdnckJnRUZCUWNEQWpBUEJnTlZIUk1CQWY4RQpCVEFEQVFIL01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQkR0L0Y4VHlQa1hVRGNKaCtiL2lxL1F5OFFPcHFZClNLc0hub2RsMTNmYkx3K1NZQXIydlBHYnRpWFVkUmNLb014bHFqS2hUcTZFdnNKS3BpSVlqRVF6MzZpVkFRVlQKbThnNUlKMnBvV3R2NG80MU9Ic05NOUhVT3dvWW51VW5TM1ZkK3FVQmgweEVTOTI4TE50UUN2VWk2WWkzYS9Dawp5Q0M3VGxnMDByOWp2QkFWTEdwRmhhcWlWVzd3VFNBTWJ2bmpwK0JQbHgxZkdQTi9PMnA0S0tDNHZNaDhpR0JuCmljU2JLc0o2bHpvSkR0L3YzVTR5eU1zNytMNGFsK0U1ZEpTSEhwaUIzRTlYcGdHMDFpZy9yN2dKMTY0OGlIbjAKc2xkbllKdTlzN0ovY1ZpZFQyNlNtNys0ZnlNbTJCT1hYOHlRbnVmRDhTZGdXMEV6enVuWCtIYk8KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+  key.pem: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFb2dJQkFBS0NBUUVBMTV4MmxzVXMrV0VNYzR6eklMeG9oZWZMQ2VwUzljcm1YVzVXUzRQWDhQK3l5UDJmCmowZStnMlBSSE8wUXM4OGQ1WVlnQVc4a291YmtrNUFqekN4cUt2S01iYWdKaEJPKzB4dTB0VFR6Yy9QS2Fnak0KQ0xPRXN1VkltYk0rRlR5dzdDdW5aeTRKUVlJemRySW9XU1JtbHZkbW54K09EQm5QVWtuUnBzQmI1R0ZmV3BFbwphald2K2VhZTBqYU9sZTk5QTYwTy9VSVVnQmpGWFkwOWdieElycEJMaXBnS1dENkR0Y2RZOHVzM2swRWU2MHJmCnpKQXdHa2hnNFNGbUtXaFFwcXVlTXhTRHpFU1cvY3FOTjBFZjJXVVh0WUdvRFgyWGY4WjhZbjhtUjBVcUlVbEYKdTU4d0kwV2EvOHY1TWY5amNpYkZMNGg0REhBUW9ndis0V1ZIV3dJREFRQUJBb0lCQUJZY2pLamZwY0laYXM1NgoyUUExY2o2eFM4aERpS2grVzJ1ZmdpZ1NhRlhsMHk3N201NTFEQnVyWStta2dqNytjYUYxUk5rQXpmQUszOHdtClR4V0VSSXNNL3N2TUhOVzN0SzB2dlRPTUw1OW5sQTJWdzE3dEVpSEtrOHgzYmxsOU5PT3pnbUo1ZlNlRHM4VnIKZGVuV2F0TDJva2FWVk5yMjFxVW92dUJyLzhDRzc2clRkNVo4TUdyeDdZdGVGWGJ5eFIzV204QktRRkRYdmYxYQpLcUV3c0hnYzhvSW9TV1hrUWVBSHI5bVYxc1F1bmZYVjJYNldVR3g4OElkWmdpejBCVW5JMnFFbnhqaWpaZVE5Cm10WTBFV01IZnh5VFlSeTYzbU9abGdPS1NBUmV4V2FnRFMxWUtSMzQxNlNmUXZ2REtyYVFYdVZ3ekRtN0VUS1kKdGNIcWR0RUNnWUVBNDIrSExLd1pZazNtc2pKc1BaY3FNUUg1RHhRVWxJTGM2RVYzZjhOL0lSWGorZUhET3VoeQp1UHBwYUtFUmZKSk1hNE83NTMzVytwN1JMckZQQlNiUW4xQUlNR3FaQ2Z1cFZzTUcxQnlpbzJSQmx5eXBOQjRyClhadDB1TlJGRVhGSnFXeTU0RTZuTEM0YVFVY2t3dmdVQzJmQTd1aG51N0dKTUxMQmMzQWhCNk1DZ1lFQThyREIKdi9HZHZFZGtXUTNPb0h5bDFSc2VqVVBlY09iekFUTUw0RzNibFFrRmdFYnk2d0c2OXhobCt1KzBuaXRML3lXLwpONFVDSm1nR3JjYkU4NCtyT1RZYXYyaWlNdGFaM0FlWFlrUmViMk9mTmk1VGRMc0dZcUUrbnBxWVFYTzRLMHNjCmFVdTBLUTFJRmF6Mm13S2xSM0dlQ2ltOEFHYXBEdCszVUtWNm5Pa0NnWUFSY3VrSUFGd2lNcC9VWkJIeDE3c2cKNzJuUVFsWWgzcmhjQ1poVmNRWTczNVlTQWNRY3JPREFXRlhsOVJXR1hTTUh6SitKN3htak9MUUx4UWF1K245ZQorYURuTmdadndhTUlTUVlwRjlsU2Q4cWdjb2k0dXVmUTByQnR6YnRPejBZN2ZWLzFXWk54ekVldlltbnJtMlRPClN6TitJTTUway9aV2lpQlZYdkRweVFLQmdITi85OVczMGRBSFVoU240NHl4aGVMVUUwZzc0cU5zNW4zTm8zdGUKRFVEeW1ER2lrbjJSeHo5TjEwc0R4YnY0OHlRcy9NSVpoUnB1SzYrTWg3TTZ6c3hkbVlFNjlPYXBCM1NXRUUvdQpKZHR4V0JaYkdkRFdLWVhMSTVnc0R3WW5ZcUVJRUM5MG5mdGpuTWprRmtGVGt3RmJhMUYrNTBCeG0wZSs1T2wyCnQ5SHhBb0dBZnBOYXhhTlNKM0JUdllpUnIxSFJXWVdZRnRXZTdZb3VqZ2t1c2JJVEtkSUY0eEpDMExnN3VldHoKNDRyZ0haSWhaRndKRktOZ1ZpRndUWmkyZFNoeFZTUml4YVhNVDlDSHlzd2ZaZmVweXNzMVhnYXFhSlZ3OGVYWgpRMTB6UTczMVFtV0xoQW4wMWs2aFV2VHJ2ZHpxZ2Y3bGJLRnNSTHZlWk81ME8ySWNrbEU9Ci0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tCg==
+---
+# Source: linkerd2/templates/proxy-injector-rbac.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: linkerd-linkerd-proxy-injector
+  labels:
+    linkerd.io/control-plane-component: proxy-injector
+    linkerd.io/control-plane-ns: linkerd
+rules:
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["create", "patch"]
+- apiGroups: [""]
+  resources: ["namespaces", "replicationcontrollers"]
+  verbs: ["list", "get", "watch"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["list", "watch"]
+- apiGroups: ["extensions", "apps"]
+  resources: ["deployments", "replicasets", "daemonsets", "statefulsets"]
+  verbs: ["list", "get", "watch"]
+- apiGroups: ["extensions", "batch"]
+  resources: ["cronjobs", "jobs"]
+  verbs: ["list", "get", "watch"]
+---
+# Source: linkerd2/templates/proxy-injector-rbac.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: linkerd-linkerd-proxy-injector
+  labels:
+    linkerd.io/control-plane-component: proxy-injector
+    linkerd.io/control-plane-ns: linkerd
+subjects:
+- kind: ServiceAccount
+  name: linkerd-proxy-injector
+  namespace: linkerd
+  apiGroup: ""
+roleRef:
+  kind: ClusterRole
+  name: linkerd-linkerd-proxy-injector
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: linkerd2/templates/proxy-injector-rbac.yaml
+###
+### Proxy Injector RBAC
+###
+---
+# Source: linkerd2/templates/proxy-injector-rbac.yaml
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: linkerd-proxy-injector-webhook-config
+  labels:
+    linkerd.io/control-plane-component: proxy-injector
+    linkerd.io/control-plane-ns: linkerd
+webhooks:
+- name: linkerd-proxy-injector.linkerd.io
+  namespaceSelector:
+    matchExpressions:
+    - key: config.linkerd.io/admission-webhooks
+      operator: NotIn
+      values:
+      - disabled
+  clientConfig:
+    service:
+      name: linkerd-proxy-injector
+      namespace: linkerd
+      path: "/"
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURKakNDQWc2Z0F3SUJBZ0lRWlg1ZGlNNHc4VTBoQ1NMcnFQMDJuREFOQmdrcWhraUc5dzBCQVFzRkFEQXQKTVNzd0tRWURWUVFERXlKc2FXNXJaWEprTFhCeWIzaDVMV2x1YW1WamRHOXlMbXhwYm10bGNtUXVjM1pqTUI0WApEVEl3TURjeU9URTNNakl3TUZvWERUSXhNRGN5T1RFM01qSXdNRm93TFRFck1Da0dBMVVFQXhNaWJHbHVhMlZ5ClpDMXdjbTk0ZVMxcGJtcGxZM1J2Y2k1c2FXNXJaWEprTG5OMll6Q0NBU0l3RFFZSktvWklodmNOQVFFQkJRQUQKZ2dFUEFEQ0NBUW9DZ2dFQkFOZWNkcGJGTFBsaERIT004eUM4YUlYbnl3bnFVdlhLNWwxdVZrdUQxL0Qvc3NqOQpuNDlIdm9OajBSenRFTFBQSGVXR0lBRnZKS0xtNUpPUUk4d3NhaXJ5akcyb0NZUVR2dE1idExVMDgzUHp5bW9JCnpBaXpoTExsU0ptelBoVThzT3dycDJjdUNVR0NNM2F5S0Zra1pwYjNacDhmamd3WnoxSkowYWJBVytSaFgxcVIKS0dvMXIvbm1udEkyanBYdmZRT3REdjFDRklBWXhWMk5QWUc4U0s2UVM0cVlDbGcrZzdYSFdQTHJONU5CSHV0SwozOHlRTUJwSVlPRWhaaWxvVUthcm5qTVVnOHhFbHYzS2pUZEJIOWxsRjdXQnFBMTlsMy9HZkdKL0prZEZLaUZKClJidWZNQ05GbXYvTCtUSC9ZM0lteFMrSWVBeHdFS0lML3VGbFIxc0NBd0VBQWFOQ01FQXdEZ1lEVlIwUEFRSC8KQkFRREFnS2tNQjBHQTFVZEpRUVdNQlFHQ0NzR0FRVUZCd01CQmdnckJnRUZCUWNEQWpBUEJnTlZIUk1CQWY4RQpCVEFEQVFIL01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQkR0L0Y4VHlQa1hVRGNKaCtiL2lxL1F5OFFPcHFZClNLc0hub2RsMTNmYkx3K1NZQXIydlBHYnRpWFVkUmNLb014bHFqS2hUcTZFdnNKS3BpSVlqRVF6MzZpVkFRVlQKbThnNUlKMnBvV3R2NG80MU9Ic05NOUhVT3dvWW51VW5TM1ZkK3FVQmgweEVTOTI4TE50UUN2VWk2WWkzYS9Dawp5Q0M3VGxnMDByOWp2QkFWTEdwRmhhcWlWVzd3VFNBTWJ2bmpwK0JQbHgxZkdQTi9PMnA0S0tDNHZNaDhpR0JuCmljU2JLc0o2bHpvSkR0L3YzVTR5eU1zNytMNGFsK0U1ZEpTSEhwaUIzRTlYcGdHMDFpZy9yN2dKMTY0OGlIbjAKc2xkbllKdTlzN0ovY1ZpZFQyNlNtNys0ZnlNbTJCT1hYOHlRbnVmRDhTZGdXMEV6enVuWCtIYk8KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+  failurePolicy: Fail
+  rules:
+  - operations: [ "CREATE" ]
+    apiGroups: [""]
+    apiVersions: ["v1"]
+    resources: ["pods"]
+  sideEffects: None
