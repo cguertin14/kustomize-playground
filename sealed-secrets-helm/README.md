@@ -11,7 +11,7 @@ Sealed Secrets is a secret management tool made by `Bitnami`. It encrypts secret
 
 ### Step 1: Create a basic Secret
 
-For example, use the secret located at `base/test-secret.yml`. Its content:
+For example, use the secret located at `base/tests/test-secret.yml`. Its content:
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -30,7 +30,7 @@ $ kubeseal < base/test-secret.yml > base/sealed-test-secret.json
 ...
 ```
 
-Then, the `base/sealed-test-secret.json` will appear. Its content (may vary):
+Then, the `base/tests/sealed-test-secret.json` will appear. Its content (may vary):
 ```json
 {
   "kind": "SealedSecret",
